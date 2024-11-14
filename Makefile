@@ -6,15 +6,15 @@
 #    By: timanish <timanish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/03 11:06:40 by nisi              #+#    #+#              #
-#    Updated: 2024/11/05 14:11:33 by timanish         ###   ########.fr        #
+#    Updated: 2024/11/14 19:09:09 by timanish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 NAME = minishell
-SRCS = test.c\
-		# tokenizer.c\
+SRCS = parse.c\
+		read_line.c\
 
 OBJS = $(SRCS:.c=.o)
 

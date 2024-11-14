@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 18:21:10 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/05 14:10:31 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/14 19:00:59 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,38 @@
 // 	return 0;
 // }
 
-int	main(void)
-{
-	char	*line;
 
-	while (1)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	srclen;
+
+	i = 0;
+	srclen = 0;
+	while (src[srclen] != '\0')
+		srclen++;
+	if (dstsize == 0)
+		return (srclen);
+	while (i < dstsize - 1 && src[i] != '\0')
 	{
-		line = readline("minishell$ ");
-		if (line == NULL)
-			break ;
-		if (*line)
-			add_history(line);
-		free(line);
+		dst[i] = src[i];
+		i++;
 	}
-	return (0);
+	dst[i] = '\0';
+	return (srclen);
+}
+
+int main()
+{
+    char src[] = "Hello, World!";
+    char dst[20];  // コピー先のバッファ
+    size_t dstsize = 5;  // バッファサイズ
+    size_t copied_length;
+
+    copied_length = ft_strlcpy(dst, src, dstsize);
+
+    printf("コピー後のdst: \"%s\"\n", dst);
+    printf("コピーされた文字数（srcの長さ）: %zu\n", copied_length);
+
+    return 0;
 }

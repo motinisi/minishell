@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/14 20:51:33 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/14 22:28:40 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,45 @@ t_token	*tokenize(char *input)
 {
 	t_token	*token;
 	t_token	*head_token;
-	char	*word;
-	char	*cpy_input;
+	size_t	head;
 	size_t	i;
 
 	token = (t_token *)malloc(sizeof(*token));
 	head_token = token;
-
-	cpy_input = input;
-	i  = 0;
+	i = 0;
 	while (input[i])
 	{
 		if (input_split(input[i]))
 		{
-			word = (char *)malloc(sizeof(char) * i + 1);
-			ft_strlcpy(word, input, i + 1);
-			printf("word:%s\n", word);
+			token->word = (char *)malloc(sizeof(char) * i);
+			ft_strlcpy(token->word, input, i + 1);
+			token->next = (t_token *)malloc(sizeof(*token));
+			token = token->next;
+			if (input[i] != input[i + 1])
+			{
+				token->word = (char *)malloc(sizeof(char) * 2);
+				ft_strlcpy(token->word, &input[i], 2);
+				token->next = (t_token *)malloc(sizeof(*token));
+				token = token->next;
+			}
+			else
+			{
+				token->word = (char *)malloc(sizeof(char) * 3);
+				ft_strlcpy(token->word, &input[i - 1], 3);
+				token->next = (t_token *)malloc(sizeof(*token));
+				token = token->next;
+			}
+			head = i + 1;
 		}
 		i ++;
+		if (!input[i])
+		{
+			token->word = (char *)malloc(sizeof(char) * (i - head + 1));
+			ft_strlcpy(token->word, &input[head], i - head + 1);
+		}
 	}
-	return (0);
+	token->next = NULL;
+	return (head_token);
 }
 
 
