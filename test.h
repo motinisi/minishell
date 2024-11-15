@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:33:29 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/14 21:49:08 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:05:50 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+
+# define NULL_CHAR 1
 
 enum	e_token_kind
 {
@@ -39,4 +41,5 @@ typedef struct s_token		t_token;
 
 t_token	*tokenize(char *input);
 int		input_split(char cmp);
+t_token	*del_space_char(t_token *token);
 #endif

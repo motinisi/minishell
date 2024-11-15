@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/14 22:28:40 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:26:52 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	input_split(char cmp)
 	return (0);
 }
 
-
 t_token	*tokenize(char *input)
 {
 	t_token	*token;
@@ -77,27 +76,38 @@ t_token	*tokenize(char *input)
 	token = (t_token *)malloc(sizeof(*token));
 	head_token = token;
 	i = 0;
+	head = 0;
 	while (input[i])
 	{
+		if (input[i] == '\"' || input[i] == '\'')
+		{
+			i ++;
+			while (input[i] && (input[i] != '\"' && input[i] != '\''))
+				i ++;
+		}
 		if (input_split(input[i]))
 		{
-			token->word = (char *)malloc(sizeof(char) * i);
-			ft_strlcpy(token->word, input, i + 1);
-			token->next = (t_token *)malloc(sizeof(*token));
-			token = token->next;
-			if (input[i] != input[i + 1])
+			if (i != head)
 			{
-				token->word = (char *)malloc(sizeof(char) * 2);
-				ft_strlcpy(token->word, &input[i], 2);
+				token->word = (char *)malloc(sizeof(char) * i);
+				ft_strlcpy(token->word, &input[head], i - head + NULL_CHAR);
 				token->next = (t_token *)malloc(sizeof(*token));
 				token = token->next;
 			}
-			else
+			if (input[i] != input[i + 1] && input[i] != ' ')
 			{
-				token->word = (char *)malloc(sizeof(char) * 3);
-				ft_strlcpy(token->word, &input[i - 1], 3);
+				token->word = (char *)malloc(sizeof(char) * 1 + NULL_CHAR);
+				ft_strlcpy(token->word, &input[i], 1 + NULL_CHAR);
 				token->next = (t_token *)malloc(sizeof(*token));
 				token = token->next;
+			}
+			else if (input[i] != ' ')
+			{
+				token->word = (char *)malloc(sizeof(char) * 2 + NULL_CHAR);
+				ft_strlcpy(token->word, &input[i], 2 + NULL_CHAR);
+				token->next = (t_token *)malloc(sizeof(*token));
+				token = token->next;
+				i ++;
 			}
 			head = i + 1;
 		}
