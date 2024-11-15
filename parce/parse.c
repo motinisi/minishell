@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/15 19:26:52 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:46:00 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 
 #include <stdio.h>
-#include "test.h"
+#include "parce.h"
 
 
 int	input_split(char cmp)
@@ -121,11 +121,3 @@ t_token	*tokenize(char *input)
 	token->next = NULL;
 	return (head_token);
 }
-
-
-// int	main()
-// {
-// 	printf("%d\n", input_split(' '));
-// 	return (0);
-// }
-

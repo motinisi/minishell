@@ -6,11 +6,11 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:06:08 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/15 18:04:56 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:45:27 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "parce.h"
 
 int	main(void)
 {

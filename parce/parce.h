@@ -6,19 +6,19 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:33:29 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/15 19:05:50 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/15 19:45:11 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef PARCE_H
+# define PARCE_H
 
 # include <strings.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 # define NULL_CHAR 1
 
