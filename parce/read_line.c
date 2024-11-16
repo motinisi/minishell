@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:06:08 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/15 19:45:27 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:43:25 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ int	main(void)
 		// token = del_space_char(token);
 		while (token)
 		{
+			if (token->word == NULL)
+				token->word = "nunununuunun";
+			if (token->word[0] == '\0')
+				token->word = "syuutann";
 			printf("word:%s\n", token->word);
 			token = token->next;
 		}
