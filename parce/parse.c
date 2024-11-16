@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/16 19:49:46 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/16 19:52:19 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ t_token	*tokenize(char *input)
 		if (!input[i])
 			handle_last_token(&token, input, i, head);
 	}
-	if (token)
-		token->next = NULL;
+	token->next = NULL;
 	return (head_token);
 }
 
