@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   my_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 12:15:00 by rogiso            #+#    #+#             */
-/*   Updated: 2024/04/29 12:15:00 by rogiso           ###   ########.fr       */
+/*   Created: 2024/07/20 16:52:00 by rogiso            #+#    #+#             */
+/*   Updated: 2024/07/20 16:52:00 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-static int	count_digit(int num);
+static int	count_digit(long num);
 
-char	*ft_itoa(int num)
+char	*my_ltoa(long num)
 {
 	int		sign;
 	int		digit;
@@ -42,7 +42,7 @@ char	*ft_itoa(int num)
 	return (num_str);
 }
 
-static int	count_digit(int num)
+static int	count_digit(long num)
 {
 	int	digit;
 

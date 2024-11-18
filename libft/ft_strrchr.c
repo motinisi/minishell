@@ -3,25 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 15:36:55 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 17:20:22 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/18 14:57:04 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/18 14:57:05 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strrchr(const char *s, int c)
-{
-	int	i;
+#include <libft.h>
 
-	i = 0;
-	while (s[i])
-		i++;
-	while (i >= 0)
+char	*ft_strrchr(const char *str, int word)
+{
+	size_t	cnt;
+	char	c_word;
+
+	cnt = ft_strlen(str);
+	c_word = (char)word;
+	if (c_word == '\0')
 	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
-		i--;
+		return ((char *)&str[cnt]);
 	}
-	return (0);
+	while (0 < cnt)
+	{
+		if (str[cnt - 1] == c_word)
+		{
+			return ((char *)&str[cnt - 1]);
+		}
+		cnt--;
+	}
+	return (NULL);
 }

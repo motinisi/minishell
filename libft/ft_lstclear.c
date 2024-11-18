@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 16:51:42 by timanish          #+#    #+#             */
-/*   Updated: 2024/07/05 18:09:46 by timanish         ###   ########.fr       */
+/*   Created: 2024/05/03 12:45:58 by rogiso            #+#    #+#             */
+/*   Updated: 2024/05/03 12:45:58 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list	*node;
+	t_list	*next_lst;
 
-	if (!lst || !del)
+	if (lst == NULL)
 		return ;
 	while (*lst)
 	{
-		node = (*lst)->next;
+		next_lst = (*lst)->next;
 		ft_lstdelone(*lst, del);
-		*lst = node;
+		*lst = next_lst;
 	}
 }

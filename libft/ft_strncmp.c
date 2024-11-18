@@ -3,31 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 16:52:14 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 17:20:10 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/18 15:20:03 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/18 15:20:09 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t len)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	int				i;
+	size_t	cnt;
+	int		diff;
 
-	str1 = (unsigned char *) s1;
-	str2 = (unsigned char *) s2;
-	i = 0;
-	if (n == 0)
-		return (0);
-	while ((str1[i] || str2[i]) && n --)
+	cnt = 0;
+	while (cnt < len)
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i ++;
+		if (s1[cnt] != s2[cnt])
+		{
+			diff = (int)((unsigned char)s1[cnt] - (unsigned char)s2[cnt]);
+			return (diff);
+		}
+		if (s1[cnt] == '\0' || s2[cnt] == '\0')
+		{
+			return (0);
+		}
+		cnt++;
 	}
 	return (0);
 }

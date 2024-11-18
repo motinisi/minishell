@@ -3,30 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 16:26:28 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 20:13:43 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/29 12:13:31 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/29 12:13:32 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *str1, const char *str2)
 {
-	char	*join;
-	int		i;
-	int		n;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*result;
 
-	join = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	i = -1;
-	n = 0;
-	if (!join)
+	if (str1 == NULL && str2 == NULL)
 		return (NULL);
-	while (s1[++i])
-		join[i] = s1[i];
-	while (s2[n])
-		join[i++] = s2[n++];
-	join[i] = '\0';
-	return (join);
+	else if (str2 == NULL)
+		return (ft_strdup(str1));
+	else if (str1 == NULL)
+		return (ft_strdup(str2));
+	s1_len = ft_strlen(str1);
+	s2_len = ft_strlen(str2);
+	result = (char *)malloc(s1_len + s2_len + 1);
+	if (result == NULL)
+		return (NULL);
+	ft_strlcpy(result, str1, s1_len + 1);
+	ft_strlcpy(result + s1_len, str2, s2_len + 1);
+	return (result);
 }

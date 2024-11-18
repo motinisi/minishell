@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   my_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 22:19:26 by rogiso            #+#    #+#             */
-/*   Updated: 2024/04/16 22:19:27 by rogiso           ###   ########.fr       */
+/*   Created: 2024/07/22 20:25:33 by rogiso            #+#    #+#             */
+/*   Updated: 2024/07/22 20:25:33 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	ft_isalnum(int c)
+size_t	my_count_words(const char *str, char sep)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
+	size_t	cnt;
+	size_t	words_cnt;
+
+	cnt = 0;
+	words_cnt = 0;
+	if (str == NULL)
+		return (words_cnt);
+	while (str[cnt])
 	{
-		return (1);
+		if (str[cnt] != sep)
+			words_cnt++;
+		while (str[cnt] && str[cnt] != sep)
+			cnt++;
+		while (str[cnt] && str[cnt] == sep)
+			cnt++;
 	}
-	return (0);
+	return (words_cnt);
 }

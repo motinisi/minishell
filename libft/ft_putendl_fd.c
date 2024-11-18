@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/04 13:25:27 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/06 14:22:28 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/29 20:35:05 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/29 20:35:05 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putendl_fd(char *str, int fd)
 {
-	write (fd, s, ft_strlen(s));
-	write (fd, "\n", 1);
+	size_t	len;
+
+	if (str == NULL)
+		return ;
+	len = ft_strlen(str);
+	write(fd, str, len);
+	write(fd, "\n", 1);
 }

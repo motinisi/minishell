@@ -3,112 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 21:01:16 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/27 13:54:23 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/26 15:27:07 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/26 15:27:09 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-static int	count_arr(char const *s, char c)
+static int		set_each_str(char **strarr, const char *str, char sep);
+static void		free_strarr(char **strarr);
+
+char	**ft_split(const char *str, char sep)
 {
-	int	i;
-	int	arr;
+	size_t	words_cnt;
+	char	**strarr;
 
-	i = 0;
-	arr = 0;
-	while (s[i])
+	if (str == NULL)
+		return (NULL);
+	words_cnt = my_count_words(str, sep);
+	strarr = (char **)ft_calloc(words_cnt + 1, sizeof(char *));
+	if (strarr == NULL)
+		return (NULL);
+	if (set_each_str(strarr, str, sep) == -1)
 	{
-		while (s[i] == c && s[i])
-			i++;
-		while (s[i] != c && s[i])
-			i++;
-		arr++;
-		if (!s[i] && s[i - 1] == c)
-			arr --;
+		free_strarr(strarr);
+		strarr = NULL;
 	}
-	return (arr);
+	return (strarr);
 }
 
-static int	malloc_free(char **result, int arr)
+static int	set_each_str(char **strarr, const char *str, char sep)
 {
-	while (arr >= 0)
-	{
-		free (result[arr]);
-		arr--;
-	}
-	free (result);
-	return (0);
-}
+	int	cnt;
+	int	start;
 
-static int	data_malloc(char **result, char const *s, char c)
-{
-	int	i;
-	int	data;
-	int	arr;
-
-	i = 0;
-	data = 0;
-	arr = 0;
-	while (s[i + data])
+	cnt = 0;
+	start = 0;
+	while (str[cnt])
 	{
-		while (s[i + data] == c && s[i + data])
-			i ++;
-		while (s[i + data] != c && s[i + data])
-			data ++;
-		if (s[i + data - 1] != c)
+		if (str[cnt] != sep)
+			start = cnt;
+		while (str[cnt] && str[cnt] != sep)
+			cnt++;
+		if (cnt != 0 && (str[cnt] == sep || str[cnt] == '\0'))
 		{
-			result[arr] = (char *)malloc(sizeof(char) * (data + 1));
-			if (!result[arr])
-				return (malloc_free(result, arr));
+			*strarr = ft_strndup(&str[start], cnt - start);
+			if (*strarr == NULL)
+				return (-1);
+			strarr++;
 		}
-		i += data;
-		data = 0;
-		arr ++;
+		while (str[cnt] && str[cnt] == sep)
+			cnt++;
 	}
 	return (1);
 }
 
-static char	**split_result(char **result, char const *s, char c)
+static void	free_strarr(char **strarr)
 {
-	int	i;
-	int	arr;
-	int	data;
+	int	cnt;
 
-	i = 0;
-	arr = 0;
-	data = 0;
-	while (s[i])
+	cnt = 0;
+	while (strarr[cnt])
 	{
-		while (s[i] == c && s[i])
-			i ++;
-		while (s[i] != c && s[i])
-		{
-			result[arr][data] = s[i];
-			i ++;
-			data ++;
-		}
-		if (s[i - 1] != c)
-			result[arr ++][data] = 0;
-		data = 0;
+		free(strarr[cnt]);
+		cnt++;
 	}
-	return (result);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**result;
-	int		arr;
-
-	arr = count_arr(s, c);
-	result = (char **)malloc(sizeof(char *) * (arr + 1));
-	if (!result)
-		return (0);
-	if (data_malloc(result, s, c) == 0)
-		return (0);
-	result = split_result(result, s, c);
-	result[arr] = 0;
-	return (result);
+	free(strarr);
 }

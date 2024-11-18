@@ -1,0 +1,13 @@
+.vscode/
+libftTester/
+libft-tester-tokyo/
+*obj*
+*debug*
+*test*
+*.DS_Store
+*.code-workspace
+*.out
+*.o
+*.a
+*.json
+*.dSYM

@@ -3,38 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 17:09:51 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 20:14:08 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/29 12:13:46 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/29 12:13:47 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-char	*ft_strtrim(char const *s1, char const *set)
+static int	check_set(const char c, const char *set);
+
+char	*ft_strtrim(const char *str, const char *set)
 {
-	char	*trim;
-	int		i;
-	int		t;
+	size_t	start;
+	size_t	end;
+	size_t	size;
+	char	*result;
 
-	while (ft_strchr(set, *s1) != 0 && s1 && *s1 != '\0')
-		s1 ++;
-	i = ft_strlen(s1);
-	if (*s1 != '\0')
-		i = i - 1;
-	while (ft_strchr(set, s1[i]) != 0 && s1 && s1[i] != '\0')
-		i --;
-	if (*s1 != '\0')
-		i = i + 1;
-	if (*set == '\0')
-		i = ft_strlen(s1);
-	trim = (char *)malloc(i + 1);
-	if (!trim)
+	if (str == NULL || set == NULL)
 		return (NULL);
-	t = -1;
-	while (++t < i && i != 0)
-		trim[t] = s1[t];
-	trim[t] = '\0';
-	return (trim);
+	start = 0;
+	end = ft_strlen(str);
+	while (str[start] && check_set(str[start], set))
+		start++;
+	while (start < end && check_set(str[end - 1], set))
+		end--;
+	size = end - start + 1;
+	result = (char *)malloc(size);
+	if (result == NULL)
+		return (NULL);
+	ft_strlcpy(result, &str[start], size);
+	return (result);
+}
+
+static int	check_set(const char c, const char *set)
+{
+	while (*set)
+	{
+		if (c == *set)
+			return (1);
+		set++;
+	}
+	return (0);
 }

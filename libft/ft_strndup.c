@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 22:19:26 by rogiso            #+#    #+#             */
-/*   Updated: 2024/04/16 22:19:27 by rogiso           ###   ########.fr       */
+/*   Created: 2024/06/05 17:44:06 by rogiso            #+#    #+#             */
+/*   Updated: 2024/06/05 17:44:07 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	ft_isalnum(int c)
+char	*ft_strndup(const char *str, size_t len)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-	{
-		return (1);
-	}
-	return (0);
+	char	*dest;
+
+	dest = (char *)malloc(len + 1);
+	if (dest == NULL)
+		return (NULL);
+	ft_strlcpy(dest, str, len + 1);
+	return (dest);
 }

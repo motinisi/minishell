@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   my_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 22:19:26 by rogiso            #+#    #+#             */
-/*   Updated: 2024/04/16 22:19:27 by rogiso           ###   ########.fr       */
+/*   Created: 2024/06/05 17:49:54 by rogiso            #+#    #+#             */
+/*   Updated: 2024/06/05 17:49:55 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-int	ft_isalnum(int c)
+size_t	my_strlen(const char *str)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
+	size_t	len;
+
+	len = 0;
+	if (str == NULL)
+		return (len);
+	while (str[len])
 	{
-		return (1);
+		len++;
 	}
-	return (0);
+	return (len);
 }

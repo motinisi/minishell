@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 13:43:40 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 17:18:16 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/18 11:44:57 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/18 11:44:58 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *str, int word)
 {
-	int	i;
+	char	c_word;
 
-	i = 0;
-	while (s[i])
+	c_word = (char)word;
+	while (*str)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i ++;
+		if (*str == c_word)
+			return ((char *)str);
+		str++;
 	}
-	if ((char)c == 0)
-		return ((char *)&s[i]);
-	return (0);
+	if (*str == c_word)
+		return ((char *)str);
+	return (NULL);
 }

@@ -3,27 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 17:08:58 by timanish          #+#    #+#             */
-/*   Updated: 2024/05/07 17:15:29 by timanish         ###   ########.fr       */
+/*   Created: 2024/04/22 13:40:32 by rogiso            #+#    #+#             */
+/*   Updated: 2024/04/22 13:40:34 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
-void	*ft_memchr(const void *ptr, int value, size_t num)
+void	*ft_memchr(const void *buffer, int src, size_t len)
 {
-	int				i;
-	unsigned char	*tmp;
+	size_t			cnt;
+	unsigned char	*us_buffer;
+	unsigned char	us_src;
 
-	i = 0;
-	tmp = (unsigned char *)ptr;
-	while (num--)
+	cnt = 0;
+	us_buffer = (unsigned char *)buffer;
+	us_src = (unsigned char)src;
+	while (cnt < len)
 	{
-		if (tmp[i] == (unsigned char)value)
-			return (&tmp[i]);
-		i ++;
+		if (us_buffer[cnt] == us_src)
+		{
+			return (&us_buffer[cnt]);
+		}
+		cnt++;
 	}
 	return (NULL);
 }
