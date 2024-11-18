@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/18 19:49:33 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:02:07 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,6 @@ static t_token	*handle_last_token(t_token *token, char *input, size_t i,
 	word = (char *)malloc(sizeof(char) * (i - head + 1));
 	ft_strlcpy(word, &input[head], i - head + 1);
 	token = token_add_back(token, word);
-	return (token);
-}
-
-t_token	*token_new(char	*word)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->word = word;
-	token->next = NULL;
-	return (token);
-}
-
-t_token	*token_add_back(t_token *token, char *word)
-{
-	t_token	*new_token;
-
-	new_token = token_new(word);
-	if (!token)
-		return (new_token);
-	token->next = new_token;
-	token = token->next;
 	return (token);
 }
 
