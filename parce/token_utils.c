@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 20:00:29 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/18 20:08:10 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:32:00 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,18 @@ t_token	*token_new(char	*word)
 	return (token);
 }
 
-t_token	*token_add_back(t_token *token, char *word)
+void	token_add_back(t_token **token, char *word)
 {
 	t_token	*new_token;
-	t_token	*head;
 
-	head = token;
 	new_token = token_new(word);
-	token = token_last(token);
-	if (!token)
-		return (new_token);
-	token->next = new_token;
-	return (head);
+	if (!*token)
+	{
+		*token = new_token;
+		return ;
+	}
+	*token = token_last(*token);
+	(*token)->next = new_token;
+	return ;
 }
 

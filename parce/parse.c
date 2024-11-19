@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/18 20:02:07 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:32:13 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,55 +56,55 @@ static void	handle_quotes(char *input, size_t *i)
 // 	*head = *i + 1;
 // }
 
-t_token	*make_split_strut(t_token *token, char *input, size_t i, int split_char)
+void	make_split_strut(t_token **token, char *input, size_t i, int split_char)
 {
 	char	*word;
 
+	if (!i)
+		return ;
 	word = (char *)malloc(sizeof(char) * split_char + NULL_CHAR);
 	ft_strlcpy(word, &input[i], split_char + NULL_CHAR);
-	token = token_add_back(token, word);
-	return (token);
+	token_add_back(token, word);
 }
 
-static t_token	*handle_last_token(t_token *token, char *input, size_t i,
+static void	*handle_last_token(t_token **token, char *input, size_t i,
 		size_t head)
 {
 	char	*word;
 
 	word = (char *)malloc(sizeof(char) * (i - head + 1));
 	ft_strlcpy(word, &input[head], i - head + 1);
-	token = token_add_back(token, word);
-	return (token);
+	token_add_back(token, word);
+	return (0);
 }
 
-t_token	*handle_split(t_token *token, char *input, size_t *i, size_t *head)
+void	*handle_split(t_token **token, char *input, size_t *i, size_t *head)
 {
 	char	*word;
 
-	if (*i != 0)
-	{
+	if (*i == 0)
+		word = (char *)malloc(sizeof(char) * (1 + 1));
+	else
 		word = (char *)malloc(sizeof(char) * (*i - *head + 1));
-		ft_strlcpy(word, &input[*head], *i - *head + 1);
-	}
+	ft_strlcpy(word, &input[*head], ft_strlen(word) + 1);
 	if (*head == 0)
-		token = token_new(word);
+		*token = token_new(word);
 	else
 		token_add_back(token, word);
 	if (input[*i] != input[*i + 1] && input[*i] != ' ')
-		token = make_split_strut(token, input, *i, SPLIT_CHAR);
+		make_split_strut(token, input, *i, SPLIT_CHAR);
 	else if (input[*i] != ' ')
 	{
-		token = make_split_strut(token, input, *i, SPLIT_CHAR * 2);
+		make_split_strut(token, input, *i, SPLIT_CHAR * 2);
 		*i = *i + 1;
 	}
 	*head = *i + 1;
-	return (token);
+	return (0);
 }
 
 t_token	*tokenize(char *input)
 {
 	t_token	*token;
-	t_token	*head_token;
 	size_t	head;
 	size_t	i;
 
@@ -115,19 +115,15 @@ t_token	*tokenize(char *input)
 	head = 0;
 	while (input[i])
 	{
-		if (i == 0)
-			head_token = token;
 		if (input[i] == '\"' || input[i] == '\'')
 			handle_quotes(input, &i);
 		if (input_split(input[i]))
-			token = handle_split(token, input, &i, &head);
+			handle_split(&token, input, &i, &head);
 		i++;
 		if (!input[i])
-		{
-			token = handle_last_token(token, input, i, head);
-		}
+			handle_last_token(&token, input, i, head);
 	}
-	return (head_token);
+	return (token);
 }
 
 // static void	handle_split(t_token **token, char *input, size_t *i,

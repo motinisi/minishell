@@ -6,7 +6,7 @@
 #    By: timanish <timanish@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/03 11:06:40 by nisi              #+#    #+#              #
-#    Updated: 2024/11/15 19:43:02 by timanish         ###   ########.fr        #
+#    Updated: 2024/11/19 18:02:42 by timanish         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CFLAGS = -Wall -Wextra -Werror -I libft -I ft_printf
 NAME = minishell
 SRCS = parce/parse.c\
 		parce/read_line.c\
+		parce/token_utils.c\
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:06:08 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/17 19:39:17 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:32:25 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int	main(void)
 {
 	char	*input;
 	t_token	*token;
+	int	n;
 
+	n = 0;
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -52,14 +54,12 @@ int	main(void)
 			break ;
 		}
 		token = tokenize(input);
-		// token = del_null_token(token);
 		while (token)
 		{
-			if (token->word[0] == '\0')
-				printf("syutann\n");
-			else
-				printf("word:%s\n", token->word);
+			printf("word:%s\n", token->word);
 			token = token->next;
+			// if (++n == 3)
+			// 	break;
 		}
 		if (*input)
 			add_history(input);

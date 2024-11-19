@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:33:29 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/18 19:47:19 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/19 18:11:19 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_token		t_token;
 t_token	*tokenize(char *input);
 int		input_split(char cmp);
 t_token	*token_new(char	*word);
-t_token	*token_add_back(t_token *token, char *word);
+void	token_add_back(t_token **token, char *word);
+t_token	*token_last(t_token *token);
 
 #endif
