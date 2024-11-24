@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 14:25:57 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/19 20:32:13 by timanish         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:26:42 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ t_token	*tokenize(char *input)
 		return (0);
 	i = 0;
 	head = 0;
+	while(*input == ' ')
+		input ++;
 	while (input[i])
 	{
 		if (input[i] == '\"' || input[i] == '\'')
