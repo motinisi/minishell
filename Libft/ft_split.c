@@ -12,8 +12,7 @@
 
 #include <libft.h>
 
-static int		set_each_str(char **strarr, const char *str, char sep);
-static void		free_strarr(char **strarr);
+static int	fill_strarr(char **strarr, const char *str, char sep);
 
 char	**ft_split(const char *str, char sep)
 {
@@ -22,19 +21,19 @@ char	**ft_split(const char *str, char sep)
 
 	if (str == NULL)
 		return (NULL);
-	words_cnt = my_count_words(str, sep);
+	words_cnt = my_count_words_char(str, sep);
 	strarr = (char **)ft_calloc(words_cnt + 1, sizeof(char *));
 	if (strarr == NULL)
 		return (NULL);
-	if (set_each_str(strarr, str, sep) == -1)
+	if (fill_strarr(strarr, str, sep) == -1)
 	{
-		free_strarr(strarr);
+		my_strarr_free(strarr);
 		strarr = NULL;
 	}
 	return (strarr);
 }
 
-static int	set_each_str(char **strarr, const char *str, char sep)
+static int	fill_strarr(char **strarr, const char *str, char sep)
 {
 	int	cnt;
 	int	start;
@@ -58,17 +57,4 @@ static int	set_each_str(char **strarr, const char *str, char sep)
 			cnt++;
 	}
 	return (1);
-}
-
-static void	free_strarr(char **strarr)
-{
-	int	cnt;
-
-	cnt = 0;
-	while (strarr[cnt])
-	{
-		free(strarr[cnt]);
-		cnt++;
-	}
-	free(strarr);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_count_words.c                                   :+:      :+:    :+:   */
+/*   my_count_words_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-size_t	my_count_words(const char *str, char sep)
+size_t	my_count_words_char(const char *str, char sep)
 {
 	size_t	cnt;
 	size_t	words_cnt;

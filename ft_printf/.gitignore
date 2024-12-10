@@ -1,0 +1,11 @@
+.vscode/
+*obj*
+*debug*
+*test*
+*.DS_Store
+*.code-workspace
+*.out
+*.o
+*.a
+*.json
+*.dSYM

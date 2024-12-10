@@ -5,101 +5,94 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 18:21:10 by timanish          #+#    #+#             */
-/*   Updated: 2024/11/15 19:33:53 by timanish         ###   ########.fr       */
+/*   Created: 2024/12/02 16:37:48 by timanish          #+#    #+#             */
+/*   Updated: 2024/12/03 17:54:27 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 
-// int	main()
+char	*quote_handling(char *str)
+{
+	size_t	i;
+	char	quote;
+
+	if (str[0] == '"')
+		quote = '"';
+	else
+		quote = '\'';
+	str++;
+	i = 0;
+	while (*str)
+	{
+		if (*str == quote)
+		{
+			str ++;
+			return (str);
+		}
+		str ++;
+	}
+	return (str);
+}
+
+size_t	quote_handling_word(const char *str, size_t cnt)
+{
+	char	quote;
+
+	if (str[cnt] == '"')
+		quote = '"';
+	else if (str[cnt] == '\'')
+		quote = '\'';
+	else
+		return (++cnt);
+	cnt++;
+	while (str[cnt])
+	{
+		if (str[cnt] == quote)
+		{
+			cnt ++;
+			return (cnt);
+		}
+		cnt++;
+	}
+	return (cnt);
+}
+
+int	main(void)
+{
+	char	*re;
+	size_t	cnt;
+
+	re = "\" \"";
+	cnt = 0;
+	if (re[0] != '"' && re[0] != '\'')
+	{
+		printf("no quote\n");
+		return (0);
+	}
+	cnt = quote_handling_word(re, cnt);
+	printf("cnt : %zu\n", cnt);
+	// re = quote_handling(re);
+	// printf("result : %s\n", re);
+	return (0);
+}
+
+// int	main(int argc, char **argv)
 // {
-//     char *input = readline("Enter something: ");
+// 	char	*re;
 
-//     if (input == NULL) 
+// 	if (argc < 2)
 // 	{
-//         printf("Input was interrupted.\n");
-//     }
-// 	else 
-// 	{
-//         printf("You entered: %s\n", input);
-//         free(input); // メモリの解放
-//     }
-
-//     return 0;
-// }
-
-
-// int	main()
-// {
-// 	char	*input;
-
-// 	while(1)
-// 	{
-// 		input = readline("c9r9s9% ");
-// 		if (strlen(input))
-// 			break;
+// 		printf("no arg\n");
+// 		return (0);
 // 	}
-// 	printf("input : %s\n", input);
-// 	free(input);
-
-// 	return 0;
-// }
-
-
-// size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-// {
-// 	size_t	i;
-// 	size_t	srclen;
-
-// 	i = 0;
-// 	srclen = 0;
-// 	while (src[srclen] != '\0')
-// 		srclen++;
-// 	if (dstsize == 0)
-// 		return (srclen);
-// 	while (i < dstsize - 1 && src[i] != '\0')
+// 	if (argv[1][0] != '"' && argv[1][0] != '\'')
 // 	{
-// 		dst[i] = src[i];
-// 		i++;
+// 		printf("no quote\n");
+// 		return (0);
 // 	}
-// 	dst[i] = '\0';
-// 	return (srclen);
+// 	re = quote_handling(argv[1]);
+// 	printf("result : %s\n", re);
+// 	return (0);
 // }
 
-// int main()
-// {
-//     char src[] = "Hello, World!";
-//     char dst[20];  // コピー先のバッファ
-//     size_t dstsize = 5;  // バッファサイズ
-//     size_t copied_length;
-
-//     copied_length = ft_strlcpy(dst, src, dstsize);
-
-//     printf("コピー後のdst: \"%s\"\n", dst);
-//     printf("コピーされた文字数（srcの長さ）: %zu\n", copied_length);
-
-//     return 0;
-// }
-
-
-// #include "test.h"
-// #include "libft.h"
-
-// int main(int argc, char **argv)
-// {
-//     t_token *result;
-
-//     if (1 < argc)
-//     {
-//         result = tokenization(argv[1]);
-//         while (result)
-//         {
-//             printf("%s\n", result->data);
-//             result = result->next;
-//         }
-//     }
-// }

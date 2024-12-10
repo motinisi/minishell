@@ -1,97 +1,83 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf.C                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rogiso <rogiso@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 13:12:04 by timanish          #+#    #+#             */
-/*   Updated: 2024/10/07 14:15:33 by timanish         ###   ########.fr       */
+/*   Created: 2024/05/06 20:24:46 by rogiso            #+#    #+#             */
+/*   Updated: 2024/05/06 20:24:47 by rogiso           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <ft_printf.h>
 
-size_t	p_ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i ++;
-	return (i);
-}
-
-int	ap_format(va_list ap, char specifier)
-{
-	int		count;
-	char	*hex;
-
-	count = 0;
-	hex = "0x";
-	if (specifier == 'c')
-		count += ft_putchar_fd_p (va_arg(ap, int), 1);
-	else if (specifier == 's')
-		count += ft_putstr_fd_p (va_arg(ap, char *), 1);
-	else if (specifier == 'p')
-	{
-		write (1, hex, 2);
-		count += put_adr(va_arg(ap, unsigned long long), 1);
-	}
-	else if (specifier == 'd' || specifier == 'i')
-		count += ft_putnbr_fd_p (va_arg(ap, int), 1);
-	else if (specifier == 'u')
-		count += ft_putnbr_fd_p (va_arg(ap, unsigned int), 1);
-	else if (specifier == 'x' || specifier == 'X')
-		count += put_hex (va_arg(ap, unsigned int), specifier);
-	else if (specifier == '%')
-		count += ft_putchar_fd_p ('%', 1);
-	return (count);
-}
-
-int	space_word(char word)
-{
-	int	fd;
-
-	fd = 1;
-	if (word == '\a')
-		ft_putchar_fd_p('\a', fd);
-	if (word == '\b')
-		ft_putchar_fd_p('\b', fd);
-	if (word == '\t')
-		ft_putchar_fd_p('\t', fd);
-	if (word == '\n')
-		ft_putchar_fd_p('\n', fd);
-	if (word == '\v')
-		ft_putchar_fd_p('\v', fd);
-	if (word == '\f')
-		ft_putchar_fd_p('\f', fd);
-	if (word == '\r')
-		ft_putchar_fd_p('\r', fd);
-	if (word == ' ')
-		ft_putchar_fd_p(' ', fd);
-	return (1);
-}
+static void	initialize(t_text *text, size_t *cnt, size_t *start);
+static void	convert_arg(t_text *text, char format);
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	ap;
-	int		count;
+	t_text	text;
+	size_t	cnt;
+	size_t	start;
+	size_t	len;
 
-	count = 0;
-	va_start(ap, format);
-	while (*format != '\0')
+	initialize(&text, &cnt, &start);
+	va_start(text.args_p, format);
+	while (format[cnt])
 	{
-		if (*format == '%')
-			count += ap_format (ap, *(++format));
-		else if (*format >= 7 && *format <= 13)
-			count += space_word (*format);
-		else
+		if (format[cnt] == '%' && format[cnt + 1])
 		{
-			ft_putchar_fd_p (*format, 1);
-			count ++;
+			len = cnt - start;
+			ft_join_format(&text, ft_substr(format, start, len), len);
+			convert_arg(&text, format[++cnt]);
+			start = cnt + 1;
 		}
-		format ++;
+		if (format[cnt] == '\0')
+			break ;
+		cnt++;
 	}
-	return (count);
+	len = cnt - start;
+	ft_join_format(&text, ft_substr(format, start, len), len);
+	ft_write_result(&text, text.all_len - text.out_len);
+	va_end(text.args_p);
+	return (text.all_len);
+}
+
+static void	initialize(t_text *text, size_t *cnt, size_t *start)
+{
+	*cnt = 0;
+	*start = 0;
+	text->all_len = 0;
+	text->out_len = 0;
+	text->result[0] = '\0';
+}
+
+static void	convert_arg(t_text *text, char format)
+{
+	char	*str;
+
+	str = NULL;
+	if (format == 'c')
+		str = ft_chardup(va_arg(text->args_p, int));
+	else if (format == 's')
+		str = my_strdup(va_arg(text->args_p, char *));
+	else if (format == 'p')
+		str = ft_convert_ptr((size_t)va_arg(text->args_p, void *), 16, 0);
+	else if (format == 'd' || format == 'i')
+		str = ft_convert_num((long)va_arg(text->args_p, int), 10, 0);
+	else if (format == 'u')
+		str = ft_convert_num((long)va_arg(text->args_p, unsigned int), 10, 0);
+	else if (format == 'x')
+		str = ft_convert_num((long)va_arg(text->args_p, unsigned int), 16, 0);
+	else if (format == 'X')
+		str = ft_convert_num((long)va_arg(text->args_p, unsigned int), 16, 1);
+	else if (format == '%')
+		str = ft_chardup('%');
+	if (str == NULL)
+		str = my_strdup("(null)");
+	if (format == 'c')
+		ft_join_format(text, str, 1);
+	else
+		ft_join_format(text, str, ft_strlen(str));
 }

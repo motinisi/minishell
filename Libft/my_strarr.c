@@ -84,6 +84,8 @@ void	my_strarr_free(char *strs[])
 	int	cnt;
 
 	cnt = 0;
+	if (strs == NULL)
+		return ;
 	while (strs && strs[cnt])
 	{
 		free(strs[cnt]);

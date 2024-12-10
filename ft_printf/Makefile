@@ -1,39 +1,38 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: timanish <timanish@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/05/25 21:56:14 by timanish          #+#    #+#              #
-#    Updated: 2024/11/05 14:09:43 by timanish         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-CC = cc
-CFRAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRCS = 	ft_putword.c\
-		ft_printf.c\
-		
-OBJS = $(SRCS:.c=.o)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+SRCS =	ft_printf.c \
+		ft_chardup.c \
+		ft_convert_num.c \
+		ft_convert_ptr.c \
+		ft_join_format.c \
+		ft_write_result.c
+OBJS_DIR = objs
+OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+LIBFT_DIR = ../Libft
+LIBFT = $(LIBFT_DIR)/libft.a
+INCLUDES = -I includes -I $(LIBFT_DIR)/includes
 
-INCLUDES = -I includes
+all: $(NAME)
 
-$(NAME) :    $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
+	ar -rc $(NAME) $(OBJS) $(LIBFT)
 
-%.o:%.c
-	@$(CC) -c  $(CFLAGS) $^ -o $@ $(INCLUDES)
+$(OBJS_DIR)/%.o: %.c
+	@mkdir -p $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-all : $(NAME)
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
-clean :
-	@rm -f $(OBJS)
+clean:
+	make -C $(LIBFT_DIR) clean
+	rm -rf $(OBJS_DIR)
 
-fclean : clean
-	@rm -f $(NAME)
+fclean: clean
+	make -C $(LIBFT_DIR) fclean
+	rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re

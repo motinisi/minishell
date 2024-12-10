@@ -57,7 +57,9 @@ SRCS =	ft_atoi.c \
 		my_strdup.c \
 		my_strndup.c \
 		my_strjoin.c \
-		my_count_words.c \
+		my_split.c \
+		my_count_words_char.c \
+		my_count_words_str.c \
 		my_strarr.c \
 		my_slice.c \
 		my_error.c
