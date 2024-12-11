@@ -6,7 +6,7 @@
 /*   By: timanish <timanish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 17:31:18 by timanish          #+#    #+#             */
-/*   Updated: 2024/12/10 18:34:59 by timanish         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:06:32 by timanish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	builtin_cmd(t_cmd *cmd, char **envp)
 
 	ft_printf("---------- builtins_test ----------\n\n");
 
+	(void)envp;
 	while (cmd)
 	{
 		i = 0;
@@ -124,9 +125,3 @@ int	builtin_pwd(char **cmd)
 	return (0);
 }
 
-int	builtin_export(char **cmd, char ***envp)
-{
-	char	**envp;
-
-	envp = 
-}
